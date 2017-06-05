@@ -33,7 +33,7 @@ class MNIST(object):
                 print('Magic number mismatch, expected 2051,''got {}'.format(magic))
                 exit()
 
-            image_data = map(lambda pixel: (255 - pixel) / 255.0, array("B", f.read()))
+            image_data = list(map(lambda pixel: (255 - pixel) / 255.0, array("B", f.read())))
             # Converting data to 32 bit floating point range from 0 (black) to 1 (white)
 
             images = np.asarray(image_data, dtype=np.float32).reshape(size, rows, cols)

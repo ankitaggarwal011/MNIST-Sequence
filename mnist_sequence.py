@@ -25,7 +25,7 @@ class MNIST_Sequence(object):
             print("For example, try with sequence [0, 1] with minimum spacing 0, " +
                   "maximum_spacing 10 and image_width 66.")
             exit()
-        return allowed_spacing
+        return int(allowed_spacing)
 
     def __generate_label_map(self):
         num_labels = len(self.labels)

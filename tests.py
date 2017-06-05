@@ -20,16 +20,21 @@ class Tests(object):
     def generate_image_sequence_test(self):
         img = self.mnist_sequence.generate_image_sequence([0, 1], 0, 10, 66)
         rows, cols = img.shape
-        return (rows == 28 and cols == 66)
+        return (rows == 28 and cols == 66 and max(img) == 1.0 and min(img) == 0.0)
 
     def mnist_sequence_api_test(self):
-        self.mnist_sequence_api.generate_mnist_sequence([0, 1], (0, 10), 66)
+        img = self.mnist_sequence_api.generate_mnist_sequence([0, 1], (0, 10), 66)
+        rows, cols = img.shape
+        return (rows == 28 and cols == 66 and max(img) == 255 and min(img) == 0)
+    
+    def save_image_test(self)
+        self.mnist_sequence_api.save_image(self.mnist_sequence_api.generate_mnist_sequence([0, 1], (0, 10), 66))
         return os.path.isfile("0-1.png")
 
 
 def run_tests():
     tests = Tests()
-    total_tests, test_count = 3, 0
+    total_tests, test_count = 4, 0
     if tests.load_test():
         test_count += 1
     else:
@@ -42,6 +47,10 @@ def run_tests():
         test_count += 1
     else:
         print("MNIST sequence API test failed.")
+    if tests.save_image_test():
+        test_count += 1
+    else:
+        print("Save image test failed.")
     print(str(test_count) + " / " + str(total_tests) + " were passed.")
 
 if __name__ == "__main__":
