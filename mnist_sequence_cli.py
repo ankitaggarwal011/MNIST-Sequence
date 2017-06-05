@@ -1,6 +1,5 @@
 from __future__ import print_function
 from mnist_sequence_api import MNIST_Sequence_API
-from PIL import Image
 import sys
 
 

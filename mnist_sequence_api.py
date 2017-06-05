@@ -1,6 +1,7 @@
 from __future__ import print_function
 from mnist_sequence import MNIST_Sequence
 import numpy as np
+from PIL import Image
 
 
 class MNIST_Sequence_API(object):

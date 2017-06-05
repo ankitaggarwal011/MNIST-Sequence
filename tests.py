@@ -2,6 +2,7 @@ from __future__ import print_function
 from load import MNIST
 from mnist_sequence import MNIST_Sequence
 from mnist_sequence_api import MNIST_Sequence_API
+import numpy as np
 import os
 
 
@@ -20,15 +21,15 @@ class Tests(object):
     def generate_image_sequence_test(self):
         img = self.mnist_sequence.generate_image_sequence([0, 1], 0, 10, 66)
         rows, cols = img.shape
-        return (rows == 28 and cols == 66 and max(img) == 1.0 and min(img) == 0.0)
+        return (rows == 28 and cols == 66 and np.amax(img) == 1.0 and np.amin(img) == 0.0)
 
     def mnist_sequence_api_test(self):
         img = self.mnist_sequence_api.generate_mnist_sequence([0, 1], (0, 10), 66)
         rows, cols = img.shape
-        return (rows == 28 and cols == 66 and max(img) == 255 and min(img) == 0)
+        return (rows == 28 and cols == 66 and np.amax(img) == 255 and np.amin(img) == 0)
     
-    def save_image_test(self)
-        self.mnist_sequence_api.save_image(self.mnist_sequence_api.generate_mnist_sequence([0, 1], (0, 10), 66))
+    def save_image_test(self):
+        self.mnist_sequence_api.save_image(self.mnist_sequence_api.generate_mnist_sequence([0, 1], (0, 10), 66), [0, 1])
         return os.path.isfile("0-1.png")
 
 
