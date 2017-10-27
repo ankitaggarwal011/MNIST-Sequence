@@ -20,8 +20,8 @@ class MNIST_Sequence_API(object):
         labels = []
         for i in range(num_samples):
             seq_values = np.random.randint(0, 10, seq_len)
-            seq = api_object.generate_mnist_sequence(seq_values, spacing_range, 
-                                                     28 * image_width)
+            seq = self.generate_mnist_sequence(seq_values, spacing_range, 
+                                                     28 * seq_len)
             inputs.append(seq)
             labels.append(seq_values)
         print("MNIST sequence image dataset of size " + str(num_samples) +
