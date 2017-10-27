@@ -15,7 +15,7 @@ class MNIST_Sequence_API(object):
                     0], spacing_range[1], image_width) * 255.0).astype(np.uint8)
         return img_data
 
-    def generate_data(num_samples, seq_len, spacing_range=(0,0)):
+    def generate_data(self, num_samples, seq_len, spacing_range=(0,0)):
         inputs = []
         labels = []
         for i in range(num_samples):
@@ -35,11 +35,11 @@ class MNIST_Sequence_API(object):
         print("Image for the sequence " + img_name +
               " is generated and saved as " + img_name + ".png.")
 
-    def save_array(data, fname):
+    def save_array(self, data, fname):
         print("Saving image dataset at the location " + str(fname) + ".")
         c = bcolz.carray(data, rootdir=fname, mode='w')
         c.flush()
 
-    def load_array(fname):
+    def load_array(self, fname):
         print("Loading image dataset from the location " + str(fname) + ".")
         return bcolz.open(fname)[:]
