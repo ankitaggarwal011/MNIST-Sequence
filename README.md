@@ -4,6 +4,8 @@
 
 The [MNIST database](http://yann.lecun.com/exdb/mnist/) is a large database of handwritten digits that is commonly used for training various image processing systems. The database is also widely used for training and testing in the field of machine learning. The goal of this project is to use the above database of handwritten digit images to generate images representing sequences of handwritten digits.
 
+The project also provides a utility to generate and save a set of training/test image dataset of MNIST sequences with labels.
+
 These images could be used to train classifiers and generative deep learning models.
 
 ## Solution
@@ -18,6 +20,7 @@ The solution can be explained using the following steps:
 - Unit tests are available in ```tests.py```.
 - An API endpoint is provided in ```mnist_sequence_api.py```.
 - A CLI script is provided in ```mnist_sequence_cli.py```.A CLI script saves examples of generated images for inspecting the characteristics of the generated images and in inspecting the trained models behaviors.
+- A utility to generate a set of training/test image dataset with labels as an API endpoint is provided in ```mnist_sequence_api.py```.
 
 The above algorithm is implemented in an object-oriented approach which allows great flexibility for future changes. In the API endpoint, the data is loaded only once which will help in scaling the solution. In the future, using parallel processing would improve program's response time.
 
@@ -28,9 +31,10 @@ The library is supported for Python >= 2.7 and Python >= 3.3.
 The python modules needed in order to use this library.
 ```
 Pillow: 3.3.1
-Numpy: 1.13.3 + mkl
+numpy: 1.13.3 + mkl
+bcolz: 1.1.2
 ```
-Note: Numpy can be installed on a Windows machines using binaries provided over [here](http://www.lfd.uci.edu/%7Egohlke/pythonlibs).
+Note: numpy and bcolz can be installed on a Windows machines using binaries provided over [here](http://www.lfd.uci.edu/%7Egohlke/pythonlibs).
 
 ## Tests
 
@@ -51,7 +55,7 @@ python examples.py
 This will run generate three images of sequences and save them in the current directory.
 
 ```
-python mnist_sequence_cli 01 0 10 66
+python mnist_sequence_cli.py 01 0 10 66
 ```
 
 This will run the CLI script, generate and save the image of the sequence ([0, 1]) of the digits with minimum spacing 0, maximum spacing 10 and width 66.
@@ -63,6 +67,7 @@ from mnist_sequence_api import MNIST_Sequence_API
 
 api_object = MNIST_Sequence_API()
 api_object.generate_mnist_sequence(digits, spacing_range, image_width)
+api_object.generate_data(num_samples, seq_len)
 ```
 
 where:
@@ -70,6 +75,8 @@ where:
 - `digits` is a list-like containing the numerical values of the digits from which the sequence will be generated (for example `[3, 5, 0]`) 
 - `spacing_range` is a tuple containing the minimum and maximum spacing (in pixels) between digits. 
 - `image_width` specifies the width of the image in pixels.
+- `num_samples` is the number of samples of image dataset (MNIST sequence) with labels to be generated.
+- `seq_len` is the length of the sequence for each image in the image dataset to be generated.
 
 The function returns a (28 x image_width) image.
 
