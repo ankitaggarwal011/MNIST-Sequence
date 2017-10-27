@@ -28,7 +28,7 @@ The library is supported for Python >= 2.7 and Python >= 3.3.
 The python modules needed in order to use this library.
 ```
 Pillow: 3.3.1
-Numpy: 1.11.1 + mkl
+Numpy: 1.13.3 + mkl
 ```
 Note: Numpy can be installed on a Windows machines using binaries provided over [here](http://www.lfd.uci.edu/%7Egohlke/pythonlibs).
 
