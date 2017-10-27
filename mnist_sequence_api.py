@@ -2,7 +2,7 @@ from __future__ import print_function
 from mnist_sequence import MNIST_Sequence
 import numpy as np
 from PIL import Image
-
+import bcolz
 
 class MNIST_Sequence_API(object):
 
@@ -20,9 +20,12 @@ class MNIST_Sequence_API(object):
         labels = []
         for i in range(num_samples):
             seq_values = np.random.randint(0, 10, seq_len)
-            seq = api_object.generate_mnist_sequence(seq_values, spacing_range, 28 * image_width)
+            seq = api_object.generate_mnist_sequence(seq_values, spacing_range, 
+                                                     28 * image_width)
             inputs.append(seq)
             labels.append(seq_values)
+        print("MNIST sequence image dataset of size " + str(num_samples) +
+              " has been generated.")
         return np.array(inputs), np.array(labels)
 
     def save_image(self, img_data, sequence):
@@ -31,3 +34,12 @@ class MNIST_Sequence_API(object):
         sequence_image.save(img_name + ".png")
         print("Image for the sequence " + img_name +
               " is generated and saved as " + img_name + ".png.")
+
+    def save_array(data, fname):
+        print("Saving image dataset at the location " + str(fname) + ".")
+        c = bcolz.carray(data, rootdir=fname, mode='w')
+        c.flush()
+
+    def load_array(fname):
+        print("Loading image dataset from the location " + str(fname) + ".")
+        return bcolz.open(fname)[:]
