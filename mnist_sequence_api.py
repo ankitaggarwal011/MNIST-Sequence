@@ -15,6 +15,16 @@ class MNIST_Sequence_API(object):
                     0], spacing_range[1], image_width) * 255.0).astype(np.uint8)
         return img_data
 
+    def generate_data(num_samples, seq_len, spacing_range=(0,0)):
+        inputs = []
+        labels = []
+        for i in range(num_samples):
+            seq_values = np.random.randint(0, 10, seq_len)
+            seq = api_object.generate_mnist_sequence(seq_values, spacing_range, 28 * image_width)
+            inputs.append(seq)
+            labels.append(seq_values)
+        return np.array(inputs), np.array(labels)
+
     def save_image(self, img_data, sequence):
         sequence_image = Image.fromarray(img_data)
         img_name = "-".join(list(map(str, sequence)))
